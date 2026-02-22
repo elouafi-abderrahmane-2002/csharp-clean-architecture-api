@@ -1,127 +1,111 @@
-# Clean Architecture Web API Project
+# 🏗️ C# Clean Architecture REST API
 
-## About the Project
+A production-ready RESTful API built with **ASP.NET Core** following **Clean Architecture** principles. Includes JWT authentication, full CRUD operations, and auto-generated Swagger documentation.
 
-This project serves as a template for building a Clean Architecture Web API in ASP.NET Core. It focuses on separation of concerns by dividing the application into distinct layers: Domain, Application, Web API, and Infrastructure.
+---
 
-## Main Features
+## 🚀 Tech Stack
 
-### **1. Core Features (Completed)**
+| Layer | Technology |
+|-------|-----------|
+| Backend | ASP.NET Core 6 / C# |
+| ORM | Entity Framework Core |
+| Database | SQL Server |
+| Auth | JWT Bearer Tokens |
+| Docs | Swagger / OpenAPI |
+| Container | Docker |
 
-- Clean Architecture structure (Domain, Application, Web API, Infrastructure)
-- ASP.NET Core 8.0 with Entity Framework Core
-- Docker support with SQL Server integration
-- JWT Token & Authentication by Identity
-- Health Check and Logging
-- Middleware for Exception Handling and Validation
-- Unit Testing
+---
 
-### **2. Testing and Quality Assurance**
+## 📁 Project Structure
 
-#### **2.1 Unit Testing**
-
-- Write unit tests for authentication and identity code.
-
-#### **2.2 Integration Testing**
-
-- Set up integration tests with `HttpClient`.
-- Update GitHub Actions (GA) pipeline to include integration tests and capture Docker logs.
-
-### **3. Infrastructure and Hosting**
-
-- Host the application on AWS EC2.
-- Write Terraform scripts to initialize AWS resources.
-- Add background services.
-- Configure Hangfire for scheduled tasks.
-- Apply sidecar architecture for job execution.
-
-### **4. Enhancements and Fixes**
-
-#### **4.1 Bug Fixes**
-
-- Fix scope assignment issues.
-- Fix user flow: update and remove unused files (e.g., status, avatar).
-
-#### **4.2 Code Enhancements**
-
-- Rename all models to include `Request`/`Response` postfix.
-- Remove redundant models containing only one field.
-
-#### **4.3 Warning and Pipeline Improvements**
-
-- Fix project warnings.
-- Enhance pipeline by separating build, unit test, and integration test stages.
-
-### **6. Real-World Testing**
-
-- Add a real external service for testing.
-
-### **7. Miscellaneous**
-
-- Configure integration tests to run in Docker.
-
-## Getting Started
-
-### Prerequisites
-
-- .NET 8.0 SDK
-- Docker
-- SQL Server
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/nhonvo/clean-architecture-net-8.0
-   ```
-
-2. Build and run:
-
-   - Docker:
-
-     ```bash
-     docker-compose up --build
-     ```
-
-   - Local: Update the connection string in `appsettings.Development.json`
-
-     and run:
-
-     ```bash
-     dotnet run ./src/CleanArchitecture/CleanArchitecture.csproj
-     ```
-
-3. Package project (Optional):
-
-```bash
-dotnet pack -o nupkg
-dotnet new install ./ --force
-# dotnet new install ./nupkg/CleanArchitecture.1.0.0.nupkg
-dotnet new cleanarch -n template-project
+```
+src/
+├── API/                  # Controllers, Middlewares, Program.cs
+├── Application/          # Use Cases, DTOs, Interfaces
+├── Domain/               # Entities, Business Rules
+└── Infrastructure/       # EF Core, Repositories, DB Context
 ```
 
-### Usage
+---
 
-Access the API via:
+## ✨ Features
 
-- Docker: `http://localhost:3001/swagger/index.html`
-  - Health check: `http://localhost:3001/health` & `http://localhost:3001/healthcheck-ui`
-- Local: `http://localhost:5240/swagger/index.html`
-  - Health check: `http://localhost:5240/health` & `http://localhost:5240/healthcheck-ui`
+- ✅ Clean Architecture (Controller → Service → Repository)
+- ✅ JWT Authentication & Authorization
+- ✅ Full CRUD with Entity Framework Core
+- ✅ Global error handling middleware
+- ✅ Swagger UI with auth support
+- ✅ Docker-ready
 
-## Roadmap
+---
 
-- Issue tracking and planned features can be found [here](https://github.com/nhonvo/clean-architecture-net-8.0/issues).
+## ⚙️ Getting Started
 
-## Contributing
+### Prerequisites
+- .NET 6 SDK
+- SQL Server
+- Docker (optional)
 
-Feel free to contribute by submitting issues or pull requests.
+### Run locally
 
-## License
+```bash
+# Clone the repo
+git clone https://github.com/elouafi-abderrahmane-2002/csharp-clean-architecture-api.git
+cd csharp-clean-architecture-api
 
-This project is licensed under the MIT License.
+# Update connection string in appsettings.json
+# Then run migrations
+dotnet ef database update
 
-## Contact
+# Start the API
+dotnet run --project src/API
+```
 
-For any inquiries, contact the repository owner [here](https://github.com/nhonvo).
+### Run with Docker
+
+```bash
+docker build -t clean-api .
+docker run -p 5000:5000 clean-api
+```
+
+---
+
+## 📡 API Endpoints
+
+```
+POST   /api/auth/login        → Get JWT token
+POST   /api/auth/register     → Register new user
+
+GET    /api/items             → Get all items
+GET    /api/items/{id}        → Get item by ID
+POST   /api/items             → Create item
+PUT    /api/items/{id}        → Update item
+DELETE /api/items/{id}        → Delete item
+```
+
+---
+
+## 🔐 Authentication
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}
+```
+
+Use the returned token in subsequent requests:
+```
+Authorization: Bearer <your_token>
+```
+
+---
+
+## 👤 Author
+
+**Abderrahmane ELOUAFI**  
+[LinkedIn](https://www.linkedin.com/in/abderrahmane-elouafi-43226736b/) · [GitHub](https://github.com/elouafi-abderrahmane-2002) · [Portfolio](https://my-first-porfolio-six.vercel.app/)
